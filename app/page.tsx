@@ -1,3 +1,4 @@
+'use client'
 import Link from "next/link";
 import {
   Activity,
@@ -7,7 +8,7 @@ import {
   Menu,
   Users,
 } from "lucide-react";
-
+import { useUser } from "@auth0/nextjs-auth0/client";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -92,7 +93,10 @@ const comments = [
 ];
 
 
+
 export default function Dashboard() {
+  const user = useUser();
+
   return (
     <div className="flex min-h-screen w-full flex-col">
       <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6">
@@ -121,6 +125,12 @@ export default function Dashboard() {
           >
             API
           </Link>
+          <Link
+            href="/validator"
+            className="text-foreground transition-colors hover:text-foreground"
+          >
+            Autheticate
+          </Link>
         </nav>
         <Sheet>
           <SheetTrigger asChild>
@@ -144,6 +154,9 @@ export default function Dashboard() {
               <Link href="#" className="hover:text-foreground">
                 Home
               </Link>
+              <Link href="/validator" className="hover:text-foreground">
+                Authenticate
+              </Link>
             </nav>
           </SheetContent>
         </Sheet>
@@ -160,12 +173,14 @@ export default function Dashboard() {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuLabel>My Account</DropdownMenuLabel>
+              { user.user ? 
+              <div><DropdownMenuLabel>My Account</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuItem>Settings</DropdownMenuItem>
-              <DropdownMenuItem>Support</DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>Logout</DropdownMenuItem>
+              <DropdownMenuItem><Link href='/api/auth/logout'>Logout</Link></DropdownMenuItem></div> : 
+              <div><DropdownMenuItem><Link href='/api/auth/login'>Login</Link></DropdownMenuItem></div> }
+              
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
