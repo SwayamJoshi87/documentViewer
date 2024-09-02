@@ -109,6 +109,18 @@ export default function Dashboard() {
           >
             Home
           </Link>
+          <Link
+            href="/data"
+            className="text-foreground transition-colors hover:text-foreground"
+          >
+            postgreSQL
+          </Link>
+          <Link
+            href="/api/"
+            className="text-foreground transition-colors hover:text-foreground"
+          >
+            API
+          </Link>
         </nav>
         <Sheet>
           <SheetTrigger asChild>
