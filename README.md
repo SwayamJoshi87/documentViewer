@@ -44,3 +44,12 @@ The app is designed to be deployed on a platfrom like vercel. All the setup will
 - Here, go to run query and copy the databaseINIT query( Currently work in progrss ).
 - This is automatically provide the connection url and necessary info to the vercel app with a .env file.
 - Redeploy the vercel app which will result in the database being added to the vercel app.
+
+## Adding Authentication using OAuth
+
+Adding OAuth is pretty straight forward as well.
+
+- Login to your vercel or vercel/like platform and go to integrations.
+- Find OAuth and add it to your app.
+- This will automatically add the necessary information in the.env file.
+- Redeploy the vercel app which will result in the authentication being added to the vercel app.
