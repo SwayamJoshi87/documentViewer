@@ -34,3 +34,13 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+## Adding a database to the app
+
+The app is designed to be deployed on a platfrom like vercel. All the setup will be already done for you in the code. 
+
+- Login to your vercel or vercel/like platform and go to integrations. 
+- Find postgreSQL/Neon DB. This will give you one free database.
+- Here, go to run query and copy the databaseINIT query( Currently work in progrss ).
+- This is automatically provide the connection url and necessary info to the vercel app with a .env file.
+- Redeploy the vercel app which will result in the database being added to the vercel app.
