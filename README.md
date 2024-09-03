@@ -51,5 +51,6 @@ Adding OAuth is pretty straight forward as well.
 
 - Login to your vercel or vercel/like platform and go to integrations.
 - Find OAuth and add it to your app.
-- This will automatically add the necessary information in the.env file.
+- This will automatically add the necessary information in the .env file.
 - Redeploy the vercel app which will result in the authentication being added to the vercel app.
+- Now you can use the /api/auth/login endpoint to login and /api/auth/logout endpoint to logout and api/auth/me to get the user information.
