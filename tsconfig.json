@@ -21,6 +21,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/validator/page.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/profile/page.tsx", "app/api/datareq/route.ts", "app/types.jsx", "app/dataAccess.jsx"],
   "exclude": ["node_modules"]
 }

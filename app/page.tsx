@@ -1,4 +1,4 @@
-'use client'
+
 import Link from "next/link";
 import {
   Activity,
@@ -8,7 +8,7 @@ import {
   Menu,
   Users,
 } from "lucide-react";
-import { useUser } from "@auth0/nextjs-auth0/client";
+import { getSession } from "@auth0/nextjs-auth0";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -94,8 +94,9 @@ const comments = [
 
 
 
-export default function Dashboard() {
-  const user = useUser();
+export default async function Dashboard() {
+
+  const  user  = await getSession() as any;
 
   return (
     <div className="flex min-h-screen w-full flex-col">
@@ -126,10 +127,10 @@ export default function Dashboard() {
             API
           </Link>
           <Link
-            href="/validator"
+            href="/profile"
             className="text-foreground transition-colors hover:text-foreground"
           >
-            Autheticate
+            profile
           </Link>
         </nav>
         <Sheet>
@@ -154,8 +155,8 @@ export default function Dashboard() {
               <Link href="#" className="hover:text-foreground">
                 Home
               </Link>
-              <Link href="/validator" className="hover:text-foreground">
-                Authenticate
+              <Link href="/profile" className="hover:text-foreground">
+                profile
               </Link>
             </nav>
           </SheetContent>
@@ -173,12 +174,12 @@ export default function Dashboard() {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              { user.user ? 
+              { user ? 
               <div><DropdownMenuLabel>My Account</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuItem>Settings</DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem><Link href='/api/auth/logout'>Logout</Link></DropdownMenuItem></div> : 
+              <DropdownMenuItem><Link className="w-full" href='/api/auth/logout'>Logout</Link></DropdownMenuItem></div> : 
               <div><DropdownMenuItem><Link href='/api/auth/login'>Login</Link></DropdownMenuItem></div> }
               
             </DropdownMenuContent>
