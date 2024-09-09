@@ -54,3 +54,20 @@ Adding OAuth is pretty straight forward as well.
 - This will automatically add the necessary information in the .env file.
 - Redeploy the vercel app which will result in the authentication being added to the vercel app.
 - Now you can use the /api/auth/login endpoint to login and /api/auth/logout endpoint to logout and api/auth/me to get the user information.
+
+## Data access and update functions
+
+### Using an ORM
+
+For accessing data, I have used an ORM called Drizzle which is a type safe way to
+access data to avoid SQL injections and unwanted errors when accessing data. There is
+a drizzle folder which contains a schema which shows all the tables and relationships in the database. 
+
+- There are two files in app folder, dataAccess.jsx and dataUpdate.tsx which contain the functions for accessing and updating data.
+
+- Adding and updating folder paths is prohibited in the app as it will result in circular dependencies. It is not advised to do so using the app router or the react router as it directly needs to talk to the os for getting the directories and files which is not recommended as the system is stateless.
+
+- There is a python script called ingestData.py which reads all the documents and the nested folders and pages to insert them into the database. It takes any number of folders, documents and pages. The script will read all the files in the folders and add them to the database.
+
+- Python is a generally safer way to access the folder names, file names, etc.
+
