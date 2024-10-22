@@ -5,7 +5,7 @@ import { sql } from "@vercel/postgres";
 import { promises as fs } from 'fs';
 import path from 'path';
 
-export const db = drizzle(sql, {schema});
+const db = drizzle(sql, {schema});
 
 async function insertMockUsers() {
     for (let i = 0; i < 100; i++) {
