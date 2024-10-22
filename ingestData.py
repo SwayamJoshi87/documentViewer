@@ -19,7 +19,7 @@ def connect_db():
 # Function to insert folder data into the database
 def insert_folder(cursor, folder_name, folder_title, folder_path):
     cursor.execute(
-        "INSERT INTO folders (folder_name, folder_title, folder_path) VALUES (%s, %s, %s) RETURNING id",
+        "INSERT INTO dr_folders (folder_name, folder_title, folder_path) VALUES (%s, %s, %s) RETURNING id",
         (folder_name, folder_title, folder_path)
     )
     return cursor.fetchone()[0]
@@ -27,7 +27,7 @@ def insert_folder(cursor, folder_name, folder_title, folder_path):
 # Function to insert document data into the database
 def insert_document(cursor, folder_id, document_name, document_title, document_path):
     cursor.execute(
-        "INSERT INTO documents (folder_id, document_name, document_title, document_path) VALUES (%s, %s, %s, %s) RETURNING id",
+        "INSERT INTO dr_documents (folder_id, document_name, document_title, document_path) VALUES (%s, %s, %s, %s) RETURNING id",
         (folder_id, document_name, document_title, document_path)
     )
     return cursor.fetchone()[0]
@@ -35,7 +35,7 @@ def insert_document(cursor, folder_id, document_name, document_title, document_p
 # Function to insert page data into the database
 def insert_page(cursor, document_id, page_name, page_title, page_path):
     cursor.execute(
-        "INSERT INTO pages (document_id, page_name, page_title, page_path) VALUES (%s, %s, %s, %s) RETURNING id",
+        "INSERT INTO dr_pages (document_id, page_name, page_title, page_path) VALUES (%s, %s, %s, %s) RETURNING id",
         (document_id, page_name, page_title, page_path)
     )
     return cursor.fetchone()[0]
@@ -87,7 +87,7 @@ def process_and_insert_data(cursor, root_folder):
 # Main execution
 def main():
     # Get the current working directory
-    root_folder = os.path.join(os.getcwd(), 'root')
+    root_folder = os.path.join(os.getcwd(), 'public', 'books')
     print(f"Processing data in: {root_folder}")
 
     # Connect to the database

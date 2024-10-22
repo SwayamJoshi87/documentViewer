@@ -11,6 +11,7 @@
   "dependencies": {
     "@auth0/auth0-react": "^2.2.4",
     "@auth0/nextjs-auth0": "^3.5.0",
+    "@faker-js/faker": "^9.0.3",
     "@next/bundle-analyzer": "^14.2.7",
     "@next/env": "^14.2.8",
     "@radix-ui/react-aspect-ratio": "^1.1.0",

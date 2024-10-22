@@ -1,5 +1,8 @@
 
+'use client';
 import Link from "next/link";
+
+import { useEffect, useState } from "react";
 import {
   Activity,
   ArrowRight,
@@ -39,62 +42,52 @@ import {
 import { ModeToggle } from "@/components/ui/togglebutton";
 
 import Image from "next/image";
+import * as schema from "../drizzle/schema";
 
-const users = [
-  {
-    user: "John Doe",
-    comments: 15,
-    tags: 7,
-  },
-  {
-    user: "Jane Smith",
-    comments: 23,
-    tags: 12,
-  },
-  {
-    user: "Bob Johnson",
-    comments: 8,
-    tags: 3,
-  },
-  {
-    user: "Alice Brown",
-    comments: 31,
-    tags: 18,
-  },
-  {
-    user: "Charlie Wilson",
-    comments: 19,
-    tags: 9,
-  },
-];
-
-const comments = [
-  {
-    date: "8/23",
-    time: "11:14",
-    user: "Melanie Q",
-    doc: "F2.A.2",
-    comment: "I think that...",
-  },
-  {
-    date: "8/23",
-    time: "08:13",
-    user: "John G",
-    doc: "F3.A.1",
-    comment: "What he is...",
-  },
-  {
-    date: "8/21",
-    time: "17:08",
-    user: "Melanie Q",
-    doc: "F2.B",
-    comment: "I disagree...",
-  },
-];
-
-
+import { drizzle } from 'drizzle-orm/vercel-postgres';
+import { sql } from "@vercel/postgres";
+export const db = drizzle(sql);
 
 export default async function Dashboard() {
+
+// Fetch users from the database
+const users = await db.select().from(schema.userTable);
+  
+// Fetch recent comments from the database
+const comments = await db
+  .select()
+  .from(schema.commentsTable)
+  .orderBy(schema.commentsTable.createdAt)
+  .limit(5);
+
+// Format user data
+const formattedUsers = users.map(user => ({
+  user: user.name,
+  comments: user.totalInterations || 0, // Adjust according to your schema
+  tags: 0 // You can implement tags fetching if needed
+}));
+
+// get most active formatted users
+const mostActiveUsers = await db
+  .select()
+  .from(schema.userTable)
+  .orderBy(schema.userTable.totalInterations)
+  .limit(5);
+
+const formattedMostActiveUsers = mostActiveUsers.map(user => ({
+  user: user.name,
+  comments: user.totalInterations || 0, // Adjust according to your schema
+  tags: 0 // You can implement tags fetching if needed
+}));
+
+// Format comment data
+const formattedComments = comments.map(comment => ({
+  date: comment.createdAt.toLocaleDateString(),
+  time: comment.createdAt.toLocaleTimeString(),
+  user: comment.user_id, // You'll likely want to map this to the actual user name
+  doc: "DOC_ID", // Placeholder, fetch document ID if needed
+  comment: comment.comment
+}));
 
   const  user  = await getSession() as any;
 
@@ -312,8 +305,8 @@ export default async function Dashboard() {
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {users.map((user) => (
-                      <TableRow key={user.user}>
+                    {formattedMostActiveUsers.map((user, index) => (
+                      <TableRow key={index}>
                         <TableCell className="w-[40%] font-medium">
                           {user.user}
                         </TableCell>
@@ -346,7 +339,7 @@ export default async function Dashboard() {
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {comments.map((comment, index) => (
+                    {formattedComments.map((comment, index) => (
                       <TableRow key={index}>
                         <TableCell>{comment.date}</TableCell>
                         <TableCell>{comment.time}</TableCell>
