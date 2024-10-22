@@ -46,7 +46,7 @@ import * as schema from "../drizzle/schema";
 
 import { drizzle } from 'drizzle-orm/vercel-postgres';
 import { sql } from "@vercel/postgres";
-export const db = drizzle(sql);
+const db = drizzle(sql);
 
 export default async function Dashboard() {
 

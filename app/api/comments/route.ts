@@ -3,7 +3,7 @@ import { sql } from "@vercel/postgres";
 import * as schema from '../../../drizzle/schema';
 import { NextRequest, NextResponse } from 'next/server';
 
-export const db = drizzle(sql);
+const db = drizzle(sql);
 
 // Handle GET requests
 export async function GET(req: NextRequest) {
